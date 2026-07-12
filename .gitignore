@@ -1,3 +1,9 @@
+# Built by build.js and published by .github/workflows/deploy.yml.
+# The source is "Turbo Website.dc.html" — index.html is generated, never edited.
+index.html
+
+# Pages artifact staging dir, assembled in CI
+_site/
 
 # local verification artifacts
 live.html

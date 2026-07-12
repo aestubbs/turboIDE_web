@@ -14,8 +14,11 @@ social previews and AI crawlers now get the whole page straight from the HTML.
   the recreated editor window, feature cards, keybindings, downloads, credits and
   footer live in this single file. It is a "Design Component": markup plus a small
   logic class in `<script data-dc-script>` at the bottom.
-- **`build.js`** — compiles the source into `index.html`. Run it after every edit.
-- **`index.html`** — the built, static page. **Generated — do not edit by hand.**
+- **`build.js`** — compiles the source into `index.html`.
+- **`index.html`** — the built, static page. **Generated, and not tracked in git**
+  — CI builds it on every push and publishes the result, so it can never fall out
+  of sync with the source. Run `node build.js` locally to preview it.
+- **`.github/workflows/deploy.yml`** — builds and deploys the site on push to `main`.
 - **`fonts/`** — self-hosted IBM Plex woff2 subsets (latin + latin-ext, weights
   400/600/700 — the only faces the page uses) and `fonts.json` describing them.
 - **`og.png`** — 1200×630 social card. Regenerate if the hero changes.
@@ -25,7 +28,9 @@ social previews and AI crawlers now get the whole page straight from the HTML.
 
 ## Editing
 
-Edit `Turbo Website.dc.html`, then rebuild:
+Edit `Turbo Website.dc.html`, commit, push. CI builds and deploys it.
+
+To see your change before pushing, build it locally and open `index.html`:
 
 ```sh
 node build.js
@@ -62,8 +67,17 @@ for the two faces the first screenful paints with.
 
 ## Deploying
 
-Push to `main`. GitHub Pages serves `index.html` plus `fonts/`, `og.png`,
-`robots.txt` and `sitemap.xml` at [turboide.co](https://turboide.co/) (see `CNAME`).
+Push to `main`. `.github/workflows/deploy.yml` runs `node build.js`, assembles
+`_site/` (the built `index.html` plus `fonts/`, `og.png`, `robots.txt`,
+`sitemap.xml` and `CNAME`) and deploys it to GitHub Pages at
+[turboide.co](https://turboide.co/).
+
+Pages is set to `build_type: workflow`, so it deploys **only** from that workflow —
+pushing to `main` no longer publishes the branch contents directly. Nothing else
+in the repo is served: the design source, `build.js` and `support.js` are not in
+the artifact.
+
+If the build fails, the run stops and the previous deploy stays live.
 
 ## Credits
 
