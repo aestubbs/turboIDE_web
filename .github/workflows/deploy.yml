@@ -1,0 +1,77 @@
+name: Build and deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a running deploy finish rather than cancelling it half-published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Compiles "Turbo Website.dc.html" -> index.html. Fails the run if the
+      # page would ship without its copy in the markup (see build.js).
+      - name: Build
+        run: node build.js
+
+      # Publish only what the site serves — not the design source, build.js or
+      # the support.js runtime.
+      - name: Assemble _site
+        run: |
+          mkdir -p _site
+          cp index.html og.png robots.txt sitemap.xml CNAME _site/
+          cp -r fonts _site/fonts
+          ls -la _site
+
+      - name: Check the built page is crawlable
+        run: |
+          node -e '
+            const fs = require("fs");
+            const html = fs.readFileSync("_site/index.html", "utf8");
+            const text = html
+              .replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, "")
+              .replace(/<[^>]+>/g, " ")
+              .replace(/\s+/g, " ")
+              .trim();
+            const must = ["<h1", "rel=\"canonical\"", "og:image", "application/ld+json"];
+            const missing = must.filter((m) => !html.includes(m));
+            if (missing.length) throw new Error("missing from <head>: " + missing.join(", "));
+            if (text.length < 4000) throw new Error("only " + text.length + " chars readable without JS");
+            for (const f of html.match(/url\("fonts\/([^"]+)"\)/g) || []) {
+              const file = f.match(/fonts\/([^"]+)/)[1];
+              if (!fs.existsSync("_site/fonts/" + file)) throw new Error("missing font in _site: " + file);
+            }
+            console.log(text.length + " chars of copy readable with JS disabled");
+          '
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

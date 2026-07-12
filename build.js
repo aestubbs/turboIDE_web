@@ -189,13 +189,25 @@ ${body}
 </html>
 `;
 
-fs.writeFileSync(OUT, html);
+/* ---------- guard, then write ---------- */
 
+// The whole point of this build is that the copy is in the markup. If a source
+// change ever breaks that, fail here rather than deploying a blank page to a
+// crawler. These run before the write so a bad build leaves the last one intact.
 const noJsText = html
   .replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, '')
   .replace(/<[^>]+>/g, ' ')
   .replace(/\s+/g, ' ')
   .trim();
+
+const MIN_COPY = 4000;
+if (noJsText.length < MIN_COPY) {
+  throw new Error(`only ${noJsText.length} chars of copy render without JS (expected >= ${MIN_COPY})`);
+}
+if (!/<h1[\s>]/.test(html)) throw new Error('no <h1> in the built page');
+if (!hoverRules.length) throw new Error('no hover rules generated — did style-hover disappear?');
+
+fs.writeFileSync(OUT, html);
 
 console.log(`index.html  ${(html.length / 1024).toFixed(0)} KB`);
 console.log(`  ${hoverRules.length} hover rules, ${faces.length} font faces`);
