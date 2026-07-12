@@ -8,6 +8,8 @@
 <body>
 <x-dc>
 <helmet>
+<title>turboIDE — a terminal IDE with a coding agent built in</title>
+<meta name="description" content="A small, fast, keyboard-driven IDE that runs entirely in your terminal, with Claude Code, Codex or opencode built in as a first-class window. Made for working over SSH.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -37,6 +39,7 @@
         turboIDE
       </a>
       <nav style="display: flex; align-items: center; gap: 4px; margin-left: 6px;">
+        <a href="#agent" style="text-decoration: none; color: var(--accent, #f2a93b); padding: 4px 10px; border-radius: 4px;" style-hover="background: #16294f;">Agent</a>
         <a href="#features" style="text-decoration: none; color: var(--accent, #f2a93b); padding: 4px 10px; border-radius: 4px;" style-hover="background: #16294f;">Features</a>
         <a href="#keys" style="text-decoration: none; color: var(--accent, #f2a93b); padding: 4px 10px; border-radius: 4px;" style-hover="background: #16294f;">Keys</a>
         <a href="#download" style="text-decoration: none; color: var(--accent, #f2a93b); padding: 4px 10px; border-radius: 4px;" style-hover="background: #16294f;">Download</a>
@@ -56,13 +59,13 @@
     <section style="padding: 84px 0 40px; text-align: center;">
       <div style="display: inline-flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 1.5px; text-transform: uppercase; color: #8ea0c8; border: 1px solid #26406f; border-radius: 999px; padding: 6px 14px; margin-bottom: 26px;">
         <span style="width: 7px; height: 7px; border-radius: 50%; background: #74e08c; display: inline-block; box-shadow: 0 0 8px #74e08c;"></span>
-        A lightweight terminal IDE
+        A terminal IDE with a coding agent built in
       </div>
       <h1 style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: clamp(58px, 12vw, 128px); line-height: 0.92; margin: 0; letter-spacing: -2px; color: #f2f5fb;">
 turboIDE<span style="display: inline-block; width: 0.44em; height: 0.86em; margin-left: 0.06em; background: var(--accent, #f2a93b); vertical-align: -0.06em; animation: tvblink 1.05s steps(1) infinite;"></span>
       </h1>
-      <p style="max-width: 640px; margin: 26px auto 0; font-size: 19px; line-height: 1.6; color: #b8c6e2;">
-        A small, fast, keyboard-driven IDE that runs entirely in your terminal — with a project tree, Git, an integrated terminal, LSP and Lua scripting. Mouse and windows, in text mode.
+      <p style="max-width: 680px; margin: 26px auto 0; font-size: 19px; line-height: 1.6; color: #b8c6e2;">
+        A small, fast, keyboard-driven IDE that runs entirely in your terminal — with a coding agent built in. Claude Code, Codex or opencode runs in a window beside your code and can drive the editor itself: open the file it just changed, jump to the line, run a command. Everything an agentic loop needs, in one text-mode app you can SSH into.
       </p>
       <div style="display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 34px;">
         <a href="#download" style="text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 15px; background: var(--accent, #f2a93b); color: #0a1428; padding: 13px 26px; border-radius: 7px; box-shadow: 0 6px 22px rgba(242,169,59,0.22);" style-hover="filter: brightness(1.08); transform: translateY(-1px);">↓ Download</a>
@@ -74,8 +77,8 @@ turboIDE<span style="display: inline-block; width: 0.44em; height: 0.86em; margi
     <section style="padding: 24px 0 30px;">
       <div style="border-radius: 10px; overflow: hidden; border: 1px solid #33528c; box-shadow: 0 30px 80px rgba(0,0,0,0.55); background: #13285a;">
         <!-- app menu bar -->
-        <div style="display: flex; align-items: center; gap: 22px; padding: 7px 16px; background: #0e1f45; border-bottom: 1px solid #2a4680; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #f2a93b); overflow: hidden; white-space: nowrap;">
-          <span>File</span><span>Edit</span><span>Selection</span><span>Code</span><span>Settings</span><span>Git</span><span>Build</span><span>Windows</span><span>Help</span>
+        <div style="display: flex; align-items: center; gap: 15px; padding: 7px 16px; background: #0e1f45; border-bottom: 1px solid #2a4680; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #f2a93b); overflow: hidden; white-space: nowrap;">
+          <span>File</span><span>Edit</span><span>View</span><span>Code</span><span>Git</span><span>Run</span><span>Lua</span><span style="background: var(--accent, #f2a93b); color: #0a1428; padding: 2px 8px; margin: -2px -2px; border-radius: 3px; font-weight: 600;">Agent</span><span>Windows</span><span>Settings</span><span>Help</span>
           <span style="margin-left: auto; color: #9fb1d6;">⌥ master</span>
         </div>
         <!-- window body: editor + files -->
@@ -128,9 +131,9 @@ turboIDE<span style="display: inline-block; width: 0.44em; height: 0.86em; margi
           </div>
         </div>
         <!-- status bar -->
-        <div style="display: flex; align-items: center; gap: 22px; padding: 7px 16px; background: #0e1f45; border-top: 1px solid #2a4680; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #b9c8ea; overflow: hidden; white-space: nowrap;">
+        <div style="display: flex; align-items: center; gap: 18px; padding: 7px 16px; background: #0e1f45; border-top: 1px solid #2a4680; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #b9c8ea; overflow: hidden; white-space: nowrap;">
           <span style="color: #6f86b8;">1:1</span>
-          <span><span style="color: var(--accent, #f2a93b);">Ctrl-N</span> New</span>
+          <span><span style="color: var(--accent, #f2a93b);">Alt-0</span> Agent</span>
           <span><span style="color: var(--accent, #f2a93b);">Ctrl-O</span> Open</span>
           <span><span style="color: var(--accent, #f2a93b);">Ctrl-S</span> Save</span>
           <span><span style="color: var(--accent, #f2a93b);">F6</span> Next</span>
@@ -140,13 +143,74 @@ turboIDE<span style="display: inline-block; width: 0.44em; height: 0.86em; margi
       </div>
     </section>
 
+    <!-- ======================= AGENT ======================= -->
+    <section id="agent" style="padding: 66px 0 20px; scroll-margin-top: 60px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 34px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; color: var(--accent, #f2a93b); font-size: 14px;">// 01</span>
+        <h2 style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: clamp(26px, 4vw, 36px); margin: 0; letter-spacing: -0.5px;">Code with an agent, not next to one</h2>
+      </div>
+      <p style="max-width: 640px; margin: -18px 0 34px; color: #a9b8d8; font-size: 16px; line-height: 1.65;">Run a coding agent in a bare terminal and all you get is a transcript. It tells you it rewrote <span style="font-family: 'IBM Plex Mono', monospace; color: #dbe6fb;">src/app.cc:214</span>, and you have nowhere to look. turboIDE makes the agent part of the IDE: it gets a window, it gets your editor, and the loop closes.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;">
+
+        <div style="border: 1px solid #26406f; border-radius: 9px; background: #0f1f43; overflow: hidden;" style-hover="border-color: var(--accent, #f2a93b);">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-bottom: 1px solid #22406f; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #f2a93b);"><span>▪</span> Agent window · Alt-0 <span style="margin-left: auto; color: #4f6699;">[↑]</span></div>
+          <div style="padding: 16px 16px 18px; color: #b8c6e2; font-size: 14.5px; line-height: 1.6;">Toggle a full agent window over your code with one key. It runs in the project directory as a real PTY — mouse, scrolling and full-screen TUIs all work — and <span style="color: #dbe6fb;">Restart Agent</span> gives you a clean context without leaving the IDE. Choose Claude Code, Codex or opencode per project, with a global default.</div>
+        </div>
+
+        <div style="border: 1px solid #26406f; border-radius: 9px; background: #0f1f43; overflow: hidden;" style-hover="border-color: var(--accent, #f2a93b);">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-bottom: 1px solid #22406f; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #f2a93b);"><span>▪</span> The agent drives your editor <span style="margin-left: auto; color: #4f6699;">[↑]</span></div>
+          <div style="padding: 16px 16px 18px; color: #b8c6e2; font-size: 14.5px; line-height: 1.6;">turboIDE speaks MCP. The agent can open a file in your editor, insert at your cursor and run IDE commands — so instead of <em>describing</em> an edit, it lands it in front of you. With Claude Code it's wired up the moment you open the project: no config, no trust prompt.</div>
+        </div>
+
+        <div style="border: 1px solid #26406f; border-radius: 9px; background: #0f1f43; overflow: hidden;" style-hover="border-color: var(--accent, #f2a93b);">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-bottom: 1px solid #22406f; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #f2a93b);"><span>▪</span> Your Lua commands become agent tools <span style="margin-left: auto; color: #4f6699;">[↑]</span></div>
+          <div style="padding: 16px 16px 18px; color: #b8c6e2; font-size: 14.5px; line-height: 1.6;">Every command you register from Lua is exposed to the agent as a typed MCP tool, automatically. Teach the IDE a trick — a deploy step, a codegen pass, a project-specific refactor — and the agent can use it too.</div>
+        </div>
+
+        <div style="border: 1px solid #26406f; border-radius: 9px; background: #0f1f43; overflow: hidden;" style-hover="border-color: var(--accent, #f2a93b);">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-bottom: 1px solid #22406f; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #f2a93b);"><span>▪</span> Skills, in the file tree <span style="margin-left: auto; color: #4f6699;">[↑]</span></div>
+          <div style="padding: 16px 16px 18px; color: #b8c6e2; font-size: 14.5px; line-height: 1.6;"><span style="font-family: 'IBM Plex Mono', monospace; color: #dbe6fb;">.claude/skills</span> appears as Project and Global Skills homes in the tree, right next to your code. Open one to edit its <span style="font-family: 'IBM Plex Mono', monospace; color: #dbe6fb;">SKILL.md</span>, or scaffold a new one from the tree. The context you give the agent lives with the project, and is versioned with it.</div>
+        </div>
+
+        <div style="border: 1px solid #26406f; border-radius: 9px; background: #0f1f43; overflow: hidden;" style-hover="border-color: var(--accent, #f2a93b);">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-bottom: 1px solid #22406f; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #f2a93b);"><span>▪</span> Ctrl+click any path <span style="margin-left: auto; color: #4f6699;">[↑]</span></div>
+          <div style="padding: 16px 16px 18px; color: #b8c6e2; font-size: 14.5px; line-height: 1.6;">Agents print paths. Ctrl+click <span style="font-family: 'IBM Plex Mono', monospace; color: #dbe6fb;">src/app.cc:214:9</span> in any terminal window and turboIDE opens it, on the line, in an editor.</div>
+        </div>
+
+        <div style="border: 1px solid #26406f; border-radius: 9px; background: #0f1f43; overflow: hidden;" style-hover="border-color: var(--accent, #f2a93b);">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-bottom: 1px solid #22406f; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #f2a93b);"><span>▪</span> Keep the loop running <span style="margin-left: auto; color: #4f6699;">[↑]</span></div>
+          <div style="padding: 16px 16px 18px; color: #b8c6e2; font-size: 14.5px; line-height: 1.6;">Long-lived tools — a dev server, a watcher, a test runner — are checkable items on the Run menu, each streaming into its own output tab. Start them once and leave them running while you and the agent work.</div>
+        </div>
+
+      </div>
+
+      <!-- remote / ssh callout -->
+      <div style="margin-top: 20px; border: 1px solid #2a4680; border-left: 3px solid var(--accent, #f2a93b); border-radius: 10px; background: #0d1b3b; padding: 24px 26px;">
+        <h3 style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 19px; margin: 0 0 14px; color: #f2f5fb; letter-spacing: -0.2px;">Made for the machine at the other end of an SSH connection</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 26px; align-items: start;">
+          <div style="color: #b8c6e2; font-size: 15.5px; line-height: 1.7;">
+            <p style="margin: 0 0 14px;">On a remote box you have a terminal and nothing else. The usual answers are heavy: an editor server to install and keep alive, ports to forward, a GUI on your laptop that dies with the connection.</p>
+            <p style="margin: 0;">turboIDE is one binary and one PTY. SSH in, run <span style="font-family: 'IBM Plex Mono', monospace; color: #dbe6fb;">turboIDE .</span>, and you have the tree, Git, your editor, build output and the agent in a single window. Leave it inside tmux and it's still there — agent mid-task — when you reconnect.</p>
+          </div>
+          <div style="border: 1px solid #26406f; border-radius: 8px; background: #0a1428; padding: 16px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.95; color: #8ea0c8;">
+            <div><span style="color: var(--accent, #f2a93b);">$</span> ssh build-box</div>
+            <div><span style="color: var(--accent, #f2a93b);">$</span> tmux new -s work</div>
+            <div><span style="color: var(--accent, #f2a93b);">$</span> turboIDE .</div>
+            <div style="color: #5f77aa;">&nbsp;&nbsp;tree · git · editor · output</div>
+            <div style="color: #5f77aa;">&nbsp;&nbsp;· agent <span style="color: #7f93bd;">(Alt-0)</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ======================= FEATURES ======================= -->
     <section id="features" style="padding: 66px 0 20px; scroll-margin-top: 60px;">
       <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 34px;">
-        <span style="font-family: 'IBM Plex Mono', monospace; color: var(--accent, #f2a93b); font-size: 14px;">// 01</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; color: var(--accent, #f2a93b); font-size: 14px;">// 02</span>
         <h2 style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: clamp(26px, 4vw, 36px); margin: 0; letter-spacing: -0.5px;">What it does</h2>
       </div>
-      <p style="max-width: 620px; margin: -18px 0 34px; color: #a9b8d8; font-size: 16px; line-height: 1.65;">On top of Turbo's editor core, this fork adds the building blocks of an IDE — the everyday loop of coding, all inside the terminal.</p>
+      <p style="max-width: 620px; margin: -18px 0 34px; color: #a9b8d8; font-size: 16px; line-height: 1.65;">On top of Turbo's editor core, this fork adds the building blocks of an IDE — everything the agent needs to hand back to you, and everything you need when you take over. All inside the terminal.</p>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;">
 
@@ -166,8 +230,8 @@ turboIDE<span style="display: inline-block; width: 0.44em; height: 0.86em; margi
         </div>
 
         <div style="border: 1px solid #26406f; border-radius: 9px; background: #0f1f43; overflow: hidden;" style-hover="border-color: var(--accent, #f2a93b);">
-          <div style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-bottom: 1px solid #22406f; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #f2a93b);"><span>▪</span> Build &amp; output <span style="margin-left: auto; color: #4f6699;">[↑]</span></div>
-          <div style="padding: 16px 16px 18px; color: #b8c6e2; font-size: 14.5px; line-height: 1.6;">Configure build and run commands per project and watch the results stream into a dedicated, resizable output pane.</div>
+          <div style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-bottom: 1px solid #22406f; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #f2a93b);"><span>▪</span> Run &amp; tool processes <span style="margin-left: auto; color: #4f6699;">[↑]</span></div>
+          <div style="padding: 16px 16px 18px; color: #b8c6e2; font-size: 14.5px; line-height: 1.6;">Configure build, run and test commands per project, and watch them stream into a resizable output pane. Long-running tools get their own checkable Run-menu item and their own output tab.</div>
         </div>
 
         <div style="border: 1px solid #26406f; border-radius: 9px; background: #0f1f43; overflow: hidden;" style-hover="border-color: var(--accent, #f2a93b);">
@@ -196,7 +260,7 @@ turboIDE<span style="display: inline-block; width: 0.44em; height: 0.86em; margi
     <!-- ======================= KEYBINDINGS ======================= -->
     <section id="keys" style="padding: 66px 0 20px; scroll-margin-top: 60px;">
       <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 30px;">
-        <span style="font-family: 'IBM Plex Mono', monospace; color: var(--accent, #f2a93b); font-size: 14px;">// 02</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; color: var(--accent, #f2a93b); font-size: 14px;">// 03</span>
         <h2 style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: clamp(26px, 4vw, 36px); margin: 0; letter-spacing: -0.5px;">Intuitive by design</h2>
       </div>
       <p style="max-width: 620px; margin: -14px 0 28px; color: #a9b8d8; font-size: 16px; line-height: 1.65;">Turbo behaves the way you'd expect — so you probably already know how to use it. A few of the keys that get you moving:</p>
@@ -206,18 +270,20 @@ turboIDE<span style="display: inline-block; width: 0.44em; height: 0.86em; margi
           <span style="color: var(--accent, #f2a93b);">[▪]</span><span style="flex: 1; text-align: center; color: #dbe6fb;">keybindings.txt</span><span style="color: #6f86b8;">[↑]</span>
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 2px 26px; padding: 18px 20px; font-family: 'IBM Plex Mono', monospace; font-size: 14px; line-height: 2.05; color: #b8c6e2;">
-          <div><span style="display: inline-block; min-width: 82px; color: var(--accent, #f2a93b);">Ctrl+B</span> Command palette</div>
-          <div><span style="display: inline-block; min-width: 82px; color: var(--accent, #f2a93b);">Ctrl+O</span> Open file</div>
-          <div><span style="display: inline-block; min-width: 82px; color: var(--accent, #f2a93b);">Ctrl+S</span> Save</div>
-          <div><span style="display: inline-block; min-width: 82px; color: var(--accent, #f2a93b);">Ctrl+N</span> New document</div>
-          <div><span style="display: inline-block; min-width: 82px; color: var(--accent, #f2a93b);">Ctrl+F</span> Find</div>
-          <div><span style="display: inline-block; min-width: 82px; color: var(--accent, #f2a93b);">Ctrl+R</span> Replace</div>
-          <div><span style="display: inline-block; min-width: 82px; color: var(--accent, #f2a93b);">Ctrl+G</span> Go to line</div>
-          <div><span style="display: inline-block; min-width: 82px; color: var(--accent, #f2a93b);">Ctrl+E</span> Toggle comment</div>
-          <div><span style="display: inline-block; min-width: 82px; color: var(--accent, #f2a93b);">Ctrl+W</span> Close document</div>
-          <div><span style="display: inline-block; min-width: 82px; color: var(--accent, #f2a93b);">F6</span> Next document</div>
-          <div><span style="display: inline-block; min-width: 82px; color: var(--accent, #f2a93b);">Ctrl+Z</span> Undo / redo</div>
-          <div><span style="display: inline-block; min-width: 82px; color: var(--accent, #f2a93b);">Ctrl+Q</span> Exit</div>
+          <div><span style="display: inline-block; min-width: 94px; color: var(--accent, #f2a93b);">Alt+0</span> Toggle agent</div>
+          <div><span style="display: inline-block; min-width: 94px; color: var(--accent, #f2a93b);">Ctrl+Click</span> Open file path</div>
+          <div><span style="display: inline-block; min-width: 94px; color: var(--accent, #f2a93b);">Ctrl+B</span> Command palette</div>
+          <div><span style="display: inline-block; min-width: 94px; color: var(--accent, #f2a93b);">Ctrl+O</span> Open file</div>
+          <div><span style="display: inline-block; min-width: 94px; color: var(--accent, #f2a93b);">Ctrl+S</span> Save</div>
+          <div><span style="display: inline-block; min-width: 94px; color: var(--accent, #f2a93b);">Ctrl+N</span> New document</div>
+          <div><span style="display: inline-block; min-width: 94px; color: var(--accent, #f2a93b);">Ctrl+F</span> Find</div>
+          <div><span style="display: inline-block; min-width: 94px; color: var(--accent, #f2a93b);">Ctrl+R</span> Replace</div>
+          <div><span style="display: inline-block; min-width: 94px; color: var(--accent, #f2a93b);">Ctrl+G</span> Go to line</div>
+          <div><span style="display: inline-block; min-width: 94px; color: var(--accent, #f2a93b);">Ctrl+E</span> Toggle comment</div>
+          <div><span style="display: inline-block; min-width: 94px; color: var(--accent, #f2a93b);">Ctrl+W</span> Close document</div>
+          <div><span style="display: inline-block; min-width: 94px; color: var(--accent, #f2a93b);">F6</span> Next document</div>
+          <div><span style="display: inline-block; min-width: 94px; color: var(--accent, #f2a93b);">Ctrl+Z</span> Undo / redo</div>
+          <div><span style="display: inline-block; min-width: 94px; color: var(--accent, #f2a93b);">Ctrl+Q</span> Exit</div>
         </div>
       </div>
     </section>
@@ -225,7 +291,7 @@ turboIDE<span style="display: inline-block; width: 0.44em; height: 0.86em; margi
     <!-- ======================= DOWNLOAD ======================= -->
     <section id="download" style="padding: 66px 0 20px; scroll-margin-top: 60px;">
       <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 30px;">
-        <span style="font-family: 'IBM Plex Mono', monospace; color: var(--accent, #f2a93b); font-size: 14px;">// 03</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; color: var(--accent, #f2a93b); font-size: 14px;">// 04</span>
         <h2 style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: clamp(26px, 4vw, 36px); margin: 0; letter-spacing: -0.5px;">Get Turbo</h2>
       </div>
       <p style="max-width: 640px; margin: -14px 0 30px; color: #a9b8d8; font-size: 16px; line-height: 1.65;">Prebuilt binaries are attached to every release. Grab the one for your platform, or build from source on Linux.</p>
@@ -272,7 +338,7 @@ turboIDE<span style="display: inline-block; width: 0.44em; height: 0.86em; margi
     <!-- ======================= ABOUT / CREDITS ======================= -->
     <section id="about" style="padding: 66px 0 24px; scroll-margin-top: 60px;">
       <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 30px;">
-        <span style="font-family: 'IBM Plex Mono', monospace; color: var(--accent, #f2a93b); font-size: 14px;">// 04</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; color: var(--accent, #f2a93b); font-size: 14px;">// 05</span>
         <h2 style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: clamp(26px, 4vw, 36px); margin: 0; letter-spacing: -0.5px;">Standing on great work</h2>
       </div>
 
@@ -280,7 +346,8 @@ turboIDE<span style="display: inline-block; width: 0.44em; height: 0.86em; margi
         <div style="font-size: 16px; line-height: 1.72; color: #b8c6e2;">
           <p style="margin: 0 0 16px;">Turbo is a fork of <a href="https://github.com/magiblot/turbo" target="_blank" rel="noopener" style="color: var(--accent, #f2a93b); text-decoration: none;">magiblot/turbo</a> — an experimental terminal text editor built on Neil Hodgson's <a href="https://www.scintilla.org/" target="_blank" rel="noopener" style="color: var(--accent, #f2a93b); text-decoration: none;">Scintilla</a> editing component and the <a href="https://github.com/magiblot/tvision" target="_blank" rel="noopener" style="color: var(--accent, #f2a93b); text-decoration: none;">Turbo Vision</a> application framework.</p>
           <p style="margin: 0 0 16px;">The IDE layer on top of that foundation was built by AI — every line of code here has been written by Claude Opus 4.8, working in Claude Code. The upstream editor, Turbo Vision and Scintilla are decades of careful human engineering; the tooling around it was designed, written and iterated in close collaboration with the model.</p>
-          <p style="margin: 0 0 16px;">This fork keeps the upstream editor's behaviour and grows it into a lightweight, cross-platform IDE — the project tree, Git, terminal, build commands, LSP and Lua scripting layered on top of a foundation that has been refined for decades.</p>
+          <p style="margin: 0 0 16px;">The agent integration is what that experience asked for. The model was writing this code in a terminal, beside a project it couldn't open — so the agent got a window, and then it got the editor. turboIDE is the answer to that.</p>
+          <p style="margin: 0 0 16px;">This fork keeps the upstream editor's behaviour and grows it into a lightweight, cross-platform IDE — the project tree, Git, terminal, build commands, LSP, Lua scripting and a first-class coding agent, layered on top of a foundation that has been refined for decades.</p>
           <p style="margin: 0; color: #93a4c8; font-size: 15px;">Full credit to magiblot for the editor and the Turbo Vision framework, and to Neil Hodgson for Scintilla and Lexilla.</p>
         </div>
 
@@ -313,7 +380,7 @@ turboIDE<span style="display: inline-block; width: 0.44em; height: 0.86em; margi
           <span style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--accent, #f2a93b); color: #0a1428; border-radius: 3px; font-size: 13px;">▪</span>
           turboIDE
         </div>
-        <p style="margin: 0 0 14px; color: #93a4c8; font-size: 14px; line-height: 1.6;">A lightweight terminal IDE. Open source, and free to use.</p>
+        <p style="margin: 0 0 14px; color: #93a4c8; font-size: 14px; line-height: 1.6;">A lightweight terminal IDE, with a coding agent built in. Open source, and free to use.</p>
         <p style="margin: 0; color: #6f86b8; font-size: 12.5px; line-height: 1.6;">Fork of magiblot/turbo. Turbo Vision &amp; Scintilla by their respective authors.</p>
       </div>
 
@@ -322,6 +389,7 @@ turboIDE<span style="display: inline-block; width: 0.44em; height: 0.86em; margi
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #5f77aa; margin-bottom: 2px;">Project</div>
           <a href="https://github.com/aestubbs/turboIDE" target="_blank" rel="noopener" style="text-decoration: none; color: #b8c6e2; font-size: 14.5px;" style-hover="color: var(--accent, #f2a93b);">GitHub repository ↗</a>
           <a href="https://github.com/aestubbs/turboIDE/releases" target="_blank" rel="noopener" style="text-decoration: none; color: #b8c6e2; font-size: 14.5px;" style-hover="color: var(--accent, #f2a93b);">Releases ↗</a>
+          <a href="#agent" style="text-decoration: none; color: #b8c6e2; font-size: 14.5px;" style-hover="color: var(--accent, #f2a93b);">Agent</a>
           <a href="#features" style="text-decoration: none; color: #b8c6e2; font-size: 14.5px;" style-hover="color: var(--accent, #f2a93b);">Features</a>
         </div>
         <div style="display: flex; flex-direction: column; gap: 10px;">
